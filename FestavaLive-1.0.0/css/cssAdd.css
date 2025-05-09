@@ -1,0 +1,79 @@
+ /* .body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #1e1e2f;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            overflow: hidden;
+        } */
+        .container11 {
+            text-align: center;
+            background: linear-gradient(135deg, #1124cb, #fc2525);
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(221, 37, 37, 0.9);
+            animation: float 3s ease-in-out infinite;
+    
+            /* overflow: hidden; */
+            margin-bottom: 30px;
+            width: 40vw;
+            margin: 2% auto;
+            
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .container11 h1 {
+            margin-bottom: 20px;
+            font-size: 2.8rem;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            animation: pulse 1.5s infinite alternate;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); color: #ffffff; }
+            100% { transform: scale(1.1); color: #ffeb3b; }
+        }
+        #countdown1 {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-weight: bolder;
+            margin: auto;
+        }
+        .time-box11 {
+            background: linear-gradient(135deg, #334ee7, #dd0404);
+            padding: 10px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(228, 13, 13, 0.7);
+            animation: swing 1.5s ease-in-out infinite;
+            border: #dd0404 solid 2px;
+        }
+        @keyframes swing {
+            0% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+            100% { transform: rotate(-2deg); }
+        }
+        .time-box11 span {
+            display: block;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 1px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        #live-message11 {
+            font-size: 3.2rem;
+            color: #39ff14;
+            display: none;
+            animation: flash 2s infinite alternate;
+        }
+        @keyframes flash {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }  

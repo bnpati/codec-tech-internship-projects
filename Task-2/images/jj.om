@@ -1,0 +1,52 @@
+model QuadTest
+  extends Modelica.Icons.Example;
+  inner Modelica.Mechanics.MultiBody.World world(n = {0, 0, 1}, enableAnimation = false) annotation(
+    Placement(visible = true, transformation(origin = {-80, 74}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Flight.Systems.Quad quad1(arm_angles = {-45, 45, 135, -135}) annotation(
+    Placement(visible = true, transformation(origin = {0, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Add add1[4] annotation(
+    Placement(visible = true, transformation(origin = {-32, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Flight.Controllers.QuadController quadcontroller1 annotation(
+    Placement(visible = true, transformation(origin = {-78, 36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Mechanics.MultiBody.Sensors.AbsoluteSensor absolutesensor1(get_r = true, get_v = true, get_a = true, get_w = true, get_z = true, get_angles = true, sequence = {1, 2, 3}, resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.frame_resolve) annotation(
+    Placement(visible = true, transformation(origin = {64, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput u[4] annotation(
+    Placement(visible = true, transformation(origin = {-78, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput y[3] annotation(
+    Placement(visible = true, transformation(origin = {80, -26}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Flight.Interfaces.SimBus simbus1 annotation(
+    Placement(visible = true, transformation(origin = {66, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {88, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+equation
+  connect(absolutesensor1.r, y) annotation(
+    Line(points = {{54, 19}, {48, 19}, {48, -26}, {72, -26}, {72, -26}}, color = {0, 0, 127}));
+  connect(absolutesensor1.frame_resolve, absolutesensor1.frame_a) annotation(
+    Line(points = {{74, 30}, {84, 30}, {84, 51}, {54, 51}, {54, 33}}, color = {95, 95, 95}));
+  connect(absolutesensor1.z, simbus1.z) annotation(
+    Line(points = {{74, 19}, {74, 11.5}, {66, 11.5}, {66, -2}}, color = {0, 0, 127}));
+  connect(absolutesensor1.w, simbus1.w) annotation(
+    Line(points = {{70, 19}, {70, 12.5}, {66, 12.5}, {66, -2}}, color = {0, 0, 127}));
+  connect(absolutesensor1.angles, simbus1.angles) annotation(
+    Line(points = {{66, 19}, {66, -2}}, color = {0, 0, 127}));
+  connect(absolutesensor1.a, simbus1.a) annotation(
+    Line(points = {{62, 19}, {62, 8.5}, {66, 8.5}, {66, -2}}, color = {0, 0, 127}));
+  connect(absolutesensor1.v, simbus1.v) annotation(
+    Line(points = {{58, 19}, {58, 7.5}, {66, 7.5}, {66, -2}}, color = {0, 0, 127}));
+  connect(absolutesensor1.r, simbus1.r) annotation(
+    Line(points = {{54, 19}, {54, 7.5}, {66, 7.5}, {66, -2}}, color = {0, 0, 127}));
+  connect(absolutesensor1.frame_a, quad1.frame_b) annotation(
+    Line(points = {{54, 30}, {10, 30}}, color = {95, 95, 95}));
+  connect(u, add1.u2) annotation(
+    Line(points = {{-78, -18}, {-54, -18}, {-54, 24}, {-44, 24}, {-44, 24}}, color = {0, 0, 127}));
+  connect(quadcontroller1.y, add1.u1) annotation(
+    Line(points = {{-68, 36}, {-46, 36}, {-46, 38}, {-46, 38}}, color = {0, 0, 127}));
+  connect(add1.y, quad1.u) annotation(
+    Line(points = {{-21, 30}, {-12, 30}, {-12, 30}, {-12, 30}}, color = {0, 0, 127}));
+connect(quad1.frame_b, absolutesensor1.frame_a) annotation(
+    Line(points = {{10, 30}, {54, 30}}, color = {95, 95, 95}));
+initial equation
+  absolutesensor1.a[3] = 0;
+  annotation(
+    Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})),
+    Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})),
+    experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.02));
+end QuadTest;
